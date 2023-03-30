@@ -9,17 +9,17 @@ using System.Linq;
 /// </summary>
 public class PagedSchemaFilter : ISchemaFilter
 {
-    /// <inheritdoc />
     public void Apply(OpenApiSchema schema, SchemaFilterContext context)
     {
         var type = context.Type;
-        if (!type.IsGenericType || type.GetGenericTypeDefinition() != typeof(Paged<>))
+        if (!type.IsGenericType ||
+            type.GetGenericTypeDefinition() != typeof(PagedResult.Paged<>))
             return;
         var argumentType = type.GetGenericArguments().First();
-        if (context.SchemaRepository.Schemas.ContainsKey(argumentType.Name))
-            return;
         var argumentSchema = context.SchemaGenerator
             .GenerateSchema(argumentType, context.SchemaRepository);
+        if (context.SchemaRepository.Schemas.ContainsKey(argumentSchema.Reference.Id))
+            return;
         context.SchemaRepository.AddDefinition(argumentType.Name, argumentSchema);
     }
 }
