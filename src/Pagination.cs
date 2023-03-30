@@ -1,14 +1,15 @@
 using System;
+using Microsoft.AspNetCore.Mvc;
 
 namespace PagedResult;
 
-using Microsoft.AspNetCore.Mvc;
+using static PaginationConfig;
 
+/// <summary>
+/// Pagination route to be used with [AsParameters]
+/// </summary>
 public class Pagination
 {
-    public static int MaxPageSize { get; set; } = 1000;
-    public static int MinPageSize { get; set; } = 20;
-
     [FromQuery(Name = "page")]
     public int? PageQuery { get; set; }
 

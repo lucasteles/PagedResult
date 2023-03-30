@@ -5,6 +5,9 @@ using PagedResult;
 
 namespace System.Linq;
 
+/// <summary>
+/// PagedResult extensions for IEnumerable
+/// </summary>
 public static class EnumerableExtensions
 {
     public static async Task<Paged<T>> ToPagedAsync<T>(

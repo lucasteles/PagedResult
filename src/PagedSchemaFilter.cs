@@ -4,8 +4,12 @@ using Microsoft.OpenApi.Models;
 using Swashbuckle.AspNetCore.SwaggerGen;
 using System.Linq;
 
+/// <summary>
+/// Swagger schema filter for paged results
+/// </summary>
 public class PagedSchemaFilter : ISchemaFilter
 {
+    /// <inheritdoc />
     public void Apply(OpenApiSchema schema, SchemaFilterContext context)
     {
         var type = context.Type;

@@ -3,6 +3,10 @@ using System.Linq;
 
 namespace PagedResult;
 
+/// <summary>
+/// Paged return value type
+/// </summary>
+/// <typeparam name="TValue"></typeparam>
 public sealed class Paged<TValue>
 {
     public IEnumerable<TValue> Data { get; init; }
