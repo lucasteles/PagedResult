@@ -13,5 +13,10 @@ public static class PaginationConfig
     /// <summary>
     /// Min items per page (default: 20)
     /// </summary>
-    public static int MinPageSize { get; set; } = 20;
+    public static int MinPageSize { get; set; } = 10;
+
+    /// <summary>
+    /// Default items per page (default: 20)
+    /// </summary>
+    public static int DefaultPageSize { get; set; } = 20;
 }

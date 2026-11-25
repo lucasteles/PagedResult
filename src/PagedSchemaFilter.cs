@@ -1,25 +1,21 @@
 namespace PagedResult.Swagger;
 
-using Microsoft.OpenApi.Models;
+using Microsoft.OpenApi;
 using Swashbuckle.AspNetCore.SwaggerGen;
-using System.Linq;
 
 /// <summary>
 /// Swagger schema filter for paged results
 /// </summary>
 public class PagedSchemaFilter : ISchemaFilter
 {
-    public void Apply(OpenApiSchema schema, SchemaFilterContext context)
+    /// <inheritdoc />
+    public void Apply(IOpenApiSchema schema, SchemaFilterContext context)
     {
         var type = context.Type;
         if (!type.IsGenericType ||
-            type.GetGenericTypeDefinition() != typeof(PagedResult.Paged<>))
+            type.GetGenericTypeDefinition() != typeof(Paged<>))
             return;
-        var argumentType = type.GetGenericArguments().First();
-        var argumentSchema = context.SchemaGenerator
-            .GenerateSchema(argumentType, context.SchemaRepository);
-        if (context.SchemaRepository.Schemas.ContainsKey(argumentSchema.Reference.Id))
-            return;
-        context.SchemaRepository.AddDefinition(argumentType.Name, argumentSchema);
+        var argumentType = type.GetGenericArguments()[0];
+        context.SchemaGenerator.GenerateSchema(argumentType, context.SchemaRepository);
     }
 }
